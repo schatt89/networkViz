@@ -58,6 +58,13 @@ document.getElementById('import').onclick = function() {
     })
     const d = await response.json();
     console.log(d);
+
+    d3.selectAll("svg > *").remove();
+    var root = d.data;
+    graph = root;
+    initializeDisplay();
+    initializeSimulation();
+
   }
   
   fr.readAsText(files.item(0));
