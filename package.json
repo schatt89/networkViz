@@ -1,0 +1,29 @@
+{
+  "name": "networkviz",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/schatt89/networkViz.git"
+  },
+  "keywords": [
+    "networks",
+    "d3.js",
+    "graph"
+  ],
+  "author": "Anna Iashina",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/schatt89/networkViz/issues"
+  },
+  "homepage": "https://github.com/schatt89/networkViz#readme",
+  "dependencies": {
+    "d3": "^5.15.0",
+    "express": "^4.17.1"
+  }
+}
