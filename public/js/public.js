@@ -20,7 +20,6 @@ function select_data (index) {
             initializeDisplay();
             initializeSimulation();
             });
-        alert(selection + " is selected");
     } else if (selection == "Option2") {
         d3.selectAll("svg > *").remove();
         d3.json("data/data2.json", function(error, _graph) {
@@ -29,10 +28,8 @@ function select_data (index) {
             initializeDisplay();
             initializeSimulation();
             });
-        alert(selection + " is selected");
     }
 }
-
 
 //////////// UPLOADING A CUSTOM FILE //////////////
 
@@ -188,10 +185,26 @@ node = svg.append("g")
         .on("start", dragstarted)
         .on("drag", dragged)
         .on("end", dragended));
+        
+// Define the div for the tooltip
+var div = d3.select("body").append("div")	
+    .attr("class", "tooltip")				
+    .style("opacity", 0);
 
 // node tooltip
-node.append("title")
-  .text(function(d) { return d.id; });
+node.on("mouseover", function(d) {		
+    div.transition()		
+        .duration(200)		
+        .style("opacity", .9);		
+    div	.html(d.id + "<br/> Group:"  + d.group)	
+        .style("left", (d3.event.pageX) + "px")		
+        .style("top", (d3.event.pageY - 28) + "px");	
+    })					
+.on("mouseout", function(d) {		
+    div.transition()		
+        .duration(500)		
+        .style("opacity", 0);	
+});
 // visualize the graph
 updateDisplay();
 }
