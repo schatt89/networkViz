@@ -173,9 +173,11 @@ link = svg.append("g")
     .attr("class", "links")
 .selectAll("line")
 .data(graph.links)
-.enter().append("line");
+.enter().append("line")
+.style("stroke-width", function(d) { return Math.sqrt(d.value); });
 
 // set the data and properties of node circles
+
 node = svg.append("g")
     .attr("class", "nodes")
 .selectAll("circle")
@@ -185,7 +187,7 @@ node = svg.append("g")
         .on("start", dragstarted)
         .on("drag", dragged)
         .on("end", dragended));
-        
+
 // Define the div for the tooltip
 var div = d3.select("body").append("div")	
     .attr("class", "tooltip")				
@@ -211,10 +213,13 @@ updateDisplay();
 
 // update the display based on the forces (but not positions)
 function updateDisplay() {
+    //var myColor = d3.scaleOrdinal();
+
 node
     .attr("r", forceProperties.collide.radius)
     .attr("stroke", forceProperties.charge.strength > 0 ? "blue" : "red")
-    .attr("stroke-width", forceProperties.charge.enabled==false ? 0 : Math.abs(forceProperties.charge.strength)/15);
+    .attr("stroke-width", forceProperties.charge.enabled==false ? 0 : Math.abs(forceProperties.charge.strength)/15)
+    //.style("fill", function(d) { return myColor.domain(d.group).range(d3.schemeSet3); })
 
 link
     .attr("stroke-width", forceProperties.link.enabled ? 1 : .5)
@@ -235,7 +240,18 @@ node
 d3.select('#alpha_value').style('flex-basis', (simulation.alpha()*100) + '%');
 }
 
+//d3.select("#clusterButton").on("click", function () {
 
+    /******************/
+    /*  Clustering    */
+    /******************/
+ /*   netClustering.cluster(graph.nodes, graph.links);
+    console.log(graph.nodes)
+    console.log(graph.links)
+
+    svg.selectAll(".node").transition().duration(2000).style("fill", function(d) { return color(d.cluster); });
+  });
+*/
 
 //////////// UI EVENTS ////////////
 
@@ -267,4 +283,12 @@ updateForces();
 function updateAll() {
 updateForces();
 updateDisplay();
+};
+
+document.getElementById('clusterButton').onclick = function recolor(d) {
+        d3.selectAll("circle")
+          .transition()
+          .duration(2000)
+          .style("fill", "green")
+          .attr("stroke-width", 0)
 };
