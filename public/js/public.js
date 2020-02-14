@@ -9,26 +9,28 @@ var graph;
 
 // load the data
 
+function network_from_selected_data (sel) {
+    if (sel == "Option1") {
+        var name = "data/data.json";
+    } else if (sel == "Option2") {
+        var name = "data/data2.json"
+    } else if (sel == "Option3") {
+        alert("Option3 is not defined")
+        
+    }
+    d3.selectAll("svg > *").remove();
+    d3.json(name, function(error, _graph) {
+        if (error) throw error;
+        graph = _graph;
+        initializeDisplay();
+        initializeSimulation();
+        });
+}
+
 function select_data (index) {
     var x = document.getElementById("mySelect");
     var selection = x.options[index].text;
-    if (selection == "Option1") {
-        d3.selectAll("svg > *").remove();
-        d3.json("data/data.json", function(error, _graph) {
-            if (error) throw error;
-            graph = _graph;
-            initializeDisplay();
-            initializeSimulation();
-            });
-    } else if (selection == "Option2") {
-        d3.selectAll("svg > *").remove();
-        d3.json("data/data2.json", function(error, _graph) {
-            if (error) throw error;
-            graph = _graph;
-            initializeDisplay();
-            initializeSimulation();
-            });
-    }
+    network_from_selected_data(selection);
 }
 
 //////////// UPLOADING A CUSTOM FILE //////////////
