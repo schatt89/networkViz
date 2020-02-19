@@ -130,6 +130,16 @@
               cluster network to add some color to the nodes</p>
               <button id="clusterButton" type="button">Cluster</button>
             </div>
+            <div class="add_network">
+              <p><label>compare networks</label>
+              select anotehr network to compare</p>
+              <select id="my2Select" onchange="if (this.selectedIndex) add_network(this.selectedIndex);">
+                <option value="-1">--</option>
+                <option value="1">Option1</option> 
+                <option value="2">Option2</option>
+                <option value="3">Option3</option>
+            </select>
+            </div>
           </div>
 
           <svg></svg>

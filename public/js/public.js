@@ -18,7 +18,6 @@ function network_from_selected_data (sel) {
         alert("Option3 is not defined")
         
     }
-    d3.selectAll("svg > *").remove();
     d3.json(name, function(error, _graph) {
         if (error) throw error;
         graph = _graph;
@@ -30,6 +29,15 @@ function network_from_selected_data (sel) {
 function select_data (index) {
     var x = document.getElementById("mySelect");
     var selection = x.options[index].text;
+    d3.selectAll("svg > *").remove();
+    network_from_selected_data(selection);
+}
+
+
+function add_network (index) {
+    var x = document.getElementById("mySelect");
+    var selection = x.options[index].text;
+    forceProperties.center.x = 0.8;
     network_from_selected_data(selection);
 }
 
@@ -87,12 +95,12 @@ simulation.on("tick", ticked);
 // values for all forces
 forceProperties = {
 center: {
-    x: 0.5,
+    x: 0.2,
     y: 0.5
 },
 charge: {
     enabled: true,
-    strength: -30,
+    strength: -30, 
     distanceMin: 1,
     distanceMax: 2000
 },
