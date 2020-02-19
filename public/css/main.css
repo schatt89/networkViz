@@ -51,6 +51,7 @@ div.tooltip {
 
 .data {
     flex-basis: 200px;
+    padding: 0 5px;
 }
 
 .data .selection {
