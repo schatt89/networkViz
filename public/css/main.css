@@ -141,6 +141,7 @@ body {
 svg {
     flex-basis: 100%;
     min-width: 200px;
+    order: 2;
   }
   .links line {
     stroke: #aaa;

@@ -20,16 +20,6 @@
               cluster network to add some color to the nodes</p>
               <button id="clusterButton" type="button">Cluster</button>
             </div>
-            <div class="add_network">
-              <p><label>compare networks</label>
-              select anotehr network to compare</p>
-              <select id="my2Select" onchange="if (this.selectedIndex) add_network(this.selectedIndex);">
-                <option value="-1">--</option>
-                <option value="1">Option1</option> 
-                <option value="2">Option2</option>
-                <option value="3">Option3</option>
-            </select>
-            </div>
           </div>
           <div id="networks">
             <div class="clearfix">
@@ -37,12 +27,13 @@
                   <span id="position"></span>
                   <div id="dragbar"></div>
                   <div id="left_container" class="container">
+                    <svg id="left_svg"></svg>
                     <div class="mini-container">
                       <div class = "selection">
                         <p><label>data</label>
                           Select a dataset</p>
             
-                          <select name="ab" id="left_select" onchange="if (this.selectedIndex) select_data(this.selectedIndex);">
+                          <select name="ab" id="left_select" onchange="if (this.selectedIndex) select_data(this.selectedIndex, '#left_svg');">
                             <option value="-1">--</option>
                             <option value="1">Option1</option> 
                             <option value="2">Option2</option>
@@ -62,12 +53,13 @@
               </div>
               <div id="main">
                   <div id="right_container" class="container">
+                    <svg id="right_svg" class = "viz"></svg>
                     <div class="mini-container">
                       <div class="selection">
                         <p><label>data</label>
                           Select a dataset</p>
             
-                          <select name="ab" id="right_select" onchange="if (this.selectedIndex) select_data(this.selectedIndex);">
+                          <select name="ab" id="right_select" onchange="if (this.selectedIndex) select_data(this.selectedIndex, '#right_svg');">
                             <option value="-1">--</option>
                             <option value="1">Option1</option> 
                             <option value="2">Option2</option>
