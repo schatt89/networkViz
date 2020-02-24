@@ -5,7 +5,7 @@ var graph;
 
 // load the data
 
-function network_from_selected_data (sel) {
+function network_from_selected_data (sel, chart) {
     if (sel == "Option1") {
         var name = "data/data.json";
     } else if (sel == "Option2") {
@@ -34,7 +34,7 @@ var	margin = {top: 30, right: 20, bottom: 30, left: 50},
 	width = 100 - margin.left - margin.right,
     height = 100 - margin.top - margin.bottom;
 
-var	chart1 = d3.select("body")
+/*var	chart1 = d3.select("body")
 	.append("svg")
 		.attr("width", width + margin.left + margin.right)
 		.attr("height", height + margin.top + margin.bottom)
@@ -49,4 +49,42 @@ var	chart2 = d3.select("body")
 		.attr("width", width + margin.left + margin.right)
 		.attr("height", height + margin.top + margin.bottom)
 	.append("g")
-		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  */      
+
+/// UI events ///
+
+var i = 0;
+var dragging = false;
+   $('#dragbar').mousedown(function(e){
+       e.preventDefault();
+       dragging = true;
+       var main = $('#right_container');
+       var ghostbar = $('<div>',
+                        {id:'ghostbar',
+                         css: {
+                                height: main.outerHeight(),
+                                top: main.offset().top,
+                                left: main.offset().left
+                               }
+                        }).appendTo('#networks');
+       
+        $(document).mousemove(function(e){
+          ghostbar.css("left", e.pageX+2);
+       });
+       
+    });
+
+   $(document).mouseup(function(e){
+       if (dragging) 
+       {
+           var percentage = (e.pageX / window.innerWidth) * 100;
+           var mainPercentage = 100-percentage;
+           
+           $('#left_container').css("width", percentage + "%");
+           $('#right_container').css("width", mainPercentage + "%");
+           $('#ghostbar').remove();
+           $(document).unbind('mousemove');
+           dragging = false;
+       }
+    });
