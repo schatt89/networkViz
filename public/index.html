@@ -8,17 +8,6 @@
     </head>
     <body>
           <div class = "data">
-            <div class = "selection">
-                <p><label>data</label>
-                Select a dataset</p>
-  
-                <select name="ab" id="mySelect" onchange="if (this.selectedIndex) select_data(this.selectedIndex);">
-                  <option value="-1">--</option>
-                  <option value="1">Option1</option> 
-                  <option value="2">Option2</option>
-                  <option value="3">Option3</option>
-              </select>
-            </div>
             <div class="uploading">
                 <p><label>json</label>
                     Upload your dataset in .json</p>
@@ -44,13 +33,57 @@
           </div>
           <div id="networks">
             <div class="clearfix">
-              <div id="left_container">
+              <div id="sidebar">
                   <span id="position"></span>
                   <div id="dragbar"></div>
-                  <div id=left_window> SOME TEXT</div>
+                  <div id="left_container" class="container">
+                    <div class="mini-container">
+                      <div class = "selection">
+                        <p><label>data</label>
+                          Select a dataset</p>
+            
+                          <select name="ab" id="left_select" onchange="if (this.selectedIndex) select_data(this.selectedIndex);">
+                            <option value="-1">--</option>
+                            <option value="1">Option1</option> 
+                            <option value="2">Option2</option>
+                            <option value="3">Option3</option>
+                        </select>
+                      </div>
+                      <div>
+                        div2
+
+                      </div>
+                      <div>
+                        div3
+                      </div>
+
+                    </div>
+                  </div>
               </div>
-              <div id="right_container">
-                  <div id=right_window> SOME TEXT </div>
+              <div id="main">
+                  <div id="right_container" class="container">
+                    <div class="mini-container">
+                      <div class="selection">
+                        <p><label>data</label>
+                          Select a dataset</p>
+            
+                          <select name="ab" id="right_select" onchange="if (this.selectedIndex) select_data(this.selectedIndex);">
+                            <option value="-1">--</option>
+                            <option value="1">Option1</option> 
+                            <option value="2">Option2</option>
+                            <option value="3">Option3</option>
+                        </select>
+                      </div>
+                      <div>
+                        div2
+                      </div>
+                      <div>
+                        div3
+                      </div>
+
+                    </div>
+                    </div>
+                  </div>
               </div>
               </div>  
           </div>       

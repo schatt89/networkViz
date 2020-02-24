@@ -5,7 +5,7 @@ var graph;
 
 // load the data
 
-function network_from_selected_data (sel, chart) {
+function network_from_selected_data (sel) {
     if (sel == "Option1") {
         var name = "data/data.json";
     } else if (sel == "Option2") {
@@ -59,7 +59,7 @@ var dragging = false;
    $('#dragbar').mousedown(function(e){
        e.preventDefault();
        dragging = true;
-       var main = $('#right_container');
+       var main = $('#main');
        var ghostbar = $('<div>',
                         {id:'ghostbar',
                          css: {
@@ -81,8 +81,8 @@ var dragging = false;
            var percentage = (e.pageX / window.innerWidth) * 100;
            var mainPercentage = 100-percentage;
            
-           $('#left_container').css("width", percentage + "%");
-           $('#right_container').css("width", mainPercentage + "%");
+           $('#sidebar').css("width", percentage + "%");
+           $('#main').css("width", mainPercentage + "%");
            $('#ghostbar').remove();
            $(document).unbind('mousemove');
            dragging = false;

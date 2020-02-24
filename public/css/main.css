@@ -49,10 +49,10 @@ body {
     margin: 5px 0;
 }
 
-.data .selection p label { margin-right: .5em; font-size: 120%; font-weight: bold; }
-.data .selection p { margin-top: 0; margin-bottom: .5em;}
-.data .selection label { display: inline-block; }
-.data .selection select {
+.selection p label { margin-right: .5em; font-size: 120%; font-weight: bold; }
+.selection p { margin-top: 0; margin-bottom: .5em;}
+.selection label { display: inline-block; }
+.selection select {
    margin-top: 0em; 
 }
 
@@ -105,15 +105,36 @@ body {
 
 /* network-specific controls */
 
-.left_container, .right_container {
+.container {
     display: flex;
+    flex-direction: column-reverse;
+    justify-items: end;
+    height: 100%;
 }
 
-.networks .left_window, .right_window {
-    flex-basis: 0vmax;
-    flex: content;
-    padding: 0 5px;
+.container div {
+    padding: 5px;
 }
+
+.mini-container {
+    display: flex;
+    background-color: #eee;
+    border-radius: 3px;
+    margin: 0 5px;
+    flex-basis: 10%;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.mini-container div {
+    flex: 1;
+}
+
+/*
+#left_window, #right_window {
+    flex: 1;
+    align-self: flex-end;
+}*/
 
 
 /* SVG styles */
@@ -132,7 +153,7 @@ svg {
     width:100%;height:100vh;padding:0;margin:0;
 }
   
-#right_container{
+#main{
    float: right;
    height:100vh;
     width: 50%;
@@ -148,7 +169,7 @@ svg {
     clear: both;
 }
 
-#left_container{
+#sidebar{
    width:50%;
    float: left;
    height:100vh;
