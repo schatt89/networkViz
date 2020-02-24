@@ -20,7 +20,7 @@ function network_from_selected_data (sel) {
         var side = window.side;
         console.log(side)
         initializeDisplay(side);
-        initializeSimulation();
+        initializeSimulation(side);
         });
 }
 
@@ -32,7 +32,7 @@ function select_data (index, side) {
     }
     window.side = side;
     var selection = x.options[index].text;
-    d3.select(side).remove();
+    // d3.select(side).remove();
     network_from_selected_data(selection);
 }
 
@@ -87,7 +87,10 @@ var dragging = false;
 var simulation = d3.forceSimulation();
 
 // set up the simulation and event to update locations after each tick
-function initializeSimulation() {
+function initializeSimulation(side) {
+var svg = d3.select(side)
+width = +svg.node().getBoundingClientRect().width,
+height = +svg.node().getBoundingClientRect().height;
 simulation.nodes(graph.nodes);
 initializeForces();
 simulation.on("tick", ticked);
@@ -96,7 +99,7 @@ simulation.on("tick", ticked);
 // values for all forces
 forceProperties = {
 center: {
-    x: 0.2,
+    x: 0.5,
     y: 0.5
 },
 charge: {
@@ -178,6 +181,7 @@ simulation.alpha(1).restart();
 // generate the svg objects and force simulation
 function initializeDisplay(side) {
     var svg = d3.select(side)
+    console.log(svg)
     // set the data and properties of link lines
     link = svg.append("g")
         .attr("class", "links")
