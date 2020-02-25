@@ -202,19 +202,28 @@ function initializeDisplay(side) {
             .on("drag", dragged)
             .on("end", dragended));
     
+    if (side == "#left_svg") {
+        var net = "#left_container"
+    } else if (side == "#right_svg") {
+        var net = "#right_container"
+    }
+    
     // Define the div for the tooltip
-    var div = d3.select("body").append("div")	
-        .attr("class", "tooltip")				
+    var div = d3.select(net).append("div")	
+        .attr("class", "tooltip")			
         .style("opacity", 0);
     
     // node tooltip
     node.on("mouseover", function(d) {		
         div.transition()		
-            .duration(200)		
+            .duration(200)
+            .style("background-color", "#eee")
             .style("opacity", .9);		
-        div	.html(d.id + "<br/> Group:"  + d.group)	
-            .style("left", (d3.event.pageX) + "px")		
-            .style("top", (d3.event.pageY - 28) + "px");	
+        div	.html(d.id + "<br/> Group: "  + d.group)	
+            .style("left", (d3.event.pageX) - 200 + "px")		
+            .style("top", (d3.event.pageY) + "px")
+            .style("display", "flex")
+            .style("position", "absolute");
         })					
     .on("mouseout", function(d) {		
         div.transition()		
