@@ -32,15 +32,12 @@ function select_data (index, side) {
     }
     window.side = side;
     var selection = x.options[index].text;
-    // d3.select(side).remove();
+
+    var svg = d3.select(side);
+    svg.selectAll("*").remove();
+
     network_from_selected_data(selection);
 }
-
-
-var	margin = {top: 30, right: 20, bottom: 30, left: 50},
-	width = 100 - margin.left - margin.right,
-    height = 100 - margin.top - margin.bottom;
-   
 
 /// UI events ///
 

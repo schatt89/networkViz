@@ -56,20 +56,16 @@ body {
    margin-top: 0em; 
 }
 
-.data .uploading {
-    padding: 5px;
-    border-radius: 3px;
-    width: 200px;
+.uploading {
     height: fit-content;
-    margin: 5px 0;
     background-color: #eee;
 }
 
-.data .uploading label { margin-right: .5em; font-size: 120%; font-weight: bold; }
-.data .uploading p { margin-top: 0; margin-bottom: .5em;}
-.data .uploading label { display: inline-block; }
-.data .uploading input {margin-bottom: 0.25em; max-width: 100%; overflow: hidden;}
-.data .uploading textarea {
+.uploading label { margin-right: .5em; font-size: 120%; font-weight: bold; }
+.uploading p { margin-top: 0; margin-bottom: .5em;}
+.uploading label { display: inline-block; }
+.uploading input {margin-bottom: 0.25em; max-width: 100%; overflow: hidden;}
+.uploading textarea {
    margin-top: .5em;
    margin-bottom: .25em; 
    max-width: 97%;
