@@ -74,6 +74,31 @@ body {
    max-height: 200px;
 }
 
+.clear {
+	box-shadow: 2px 3px 0px 0px #899599;
+	background:linear-gradient(to bottom, #ededed 5%, #bab1ba 100%);
+	background-color:#ededed;
+	border-radius: 5px;
+	border:1px solid #d6bcd6;
+	display:inline-block;
+	cursor:pointer;
+	color:#264249;
+	font-family:Arial;
+	padding:5px 12px;
+	text-decoration:none;
+    text-shadow:0px 1px 0px #e1e2ed;
+}
+.clear:hover {
+	background:linear-gradient(to bottom, #bab1ba 5%, #ededed 100%);
+	background-color:#bab1ba;
+}
+.clear:active {
+	position:relative;
+	top:1px;
+}
+
+
+
 .data .clustering {
     padding: 5px;
     border-radius: 3px;

@@ -155,6 +155,19 @@ var dragging = false;
 
 
 
+//// CLEAR SVG //////
+
+document.getElementById('left_clear').onclick = function() {
+    var svg = d3.select("#left_svg");
+    svg.selectAll("*").remove();
+}
+
+document.getElementById('right_clear').onclick = function() {
+    var svg = d3.select("#right_svg");
+    svg.selectAll("*").remove();
+}
+
+
 //////////// FORCE SIMULATION //////////// 
 
 // force simulator
