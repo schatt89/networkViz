@@ -39,6 +39,83 @@ function select_data (index, side) {
     network_from_selected_data(selection);
 }
 
+
+//////////// UPLOADING A CUSTOM FILE //////////////
+
+document.getElementById('left_import').onclick = function() {
+    const files = document.getElementById('left_file').files;
+    console.log(files);
+    if (files.length <= 0) {
+      return false;
+    }
+    
+    var fr = new FileReader();
+    
+    fr.onload = async function(e) { 
+      console.log(e);
+      const result = JSON.parse(e.target.result);
+      console.log(result)
+      var formatted = JSON.stringify(result, null, 2);
+      document.getElementById('left_result').value = formatted;
+      const response = await fetch("/api", { 
+          method: "POST",
+          body: formatted,
+          headers: {"Content-Type": "application/json"}
+      })
+      const d = await response.json();
+      console.log(d);
+  
+      var side = "#left_svg"
+      var svg = d3.select(side);
+      svg.selectAll("*").remove();
+      var root = d.data;
+      graph = root;
+      initializeDisplay(side);
+      initializeSimulation(side);
+  
+    }
+  
+    fr.readAsText(files.item(0));
+
+  }
+
+  document.getElementById('right_import').onclick = function() {
+    const files = document.getElementById('right_file').files;
+    console.log(files);
+    if (files.length <= 0) {
+      return false;
+    }
+    
+    var fr = new FileReader();
+    
+    fr.onload = async function(e) { 
+      console.log(e);
+      const result = JSON.parse(e.target.result);
+      console.log(result)
+      var formatted = JSON.stringify(result, null, 2);
+      document.getElementById('right_result').value = formatted;
+      const response = await fetch("/api", { 
+          method: "POST",
+          body: formatted,
+          headers: {"Content-Type": "application/json"}
+      })
+      const d = await response.json();
+      console.log(d);
+  
+      var side = "#right_svg"
+      var svg = d3.select(side);
+      svg.selectAll("*").remove();
+      var root = d.data;
+      graph = root;
+      initializeDisplay(side);
+      initializeSimulation(side);
+  
+    }
+
+    fr.readAsText(files.item(0));
+  
+  }
+
 /// UI events ///
 
 var i = 0;
