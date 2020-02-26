@@ -42,60 +42,101 @@ body {
     padding: 0 5px;
 }
 
-.data .selection {
+/*.selection {
     background-color:#eee;
     border-radius: 3px;
     padding: 5px;
     margin: 5px 0;
-}
+}*/
 
-.selection p label { margin-right: .5em; font-size: 120%; font-weight: bold; }
+.selection p .label { margin-right: .5em; font-size: 120%; font-weight: bold; }
 .selection p { margin-top: 0; margin-bottom: .5em;}
-.selection label { display: inline-block; }
+.selection .label { display: inline-block; }
 .selection select {
    margin-top: 0em; 
 }
+
+.selection {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 15px;
+}    .selection select {
+        display: inline-block;
+        width: 60%;
+        cursor: pointer;
+        padding: 5px 15px;
+        outline: 0;
+        border: 1px solid #d6bcd6;
+        border-radius: 3px;
+        background: linear-gradient(to top, #ededed 5%, #bab1ba 100%);
+        color: #264249;
+    }
+        .selection select::-ms-expand {
+            display: none;
+        }
+        .selection select:hover,
+        .selection select:focus {
+            color: #000000;
+            background: #ededed;
+        }
+        .selection select:disabled {
+            opacity: 1;
+            pointer-events: none;
+        }
+
 
 .uploading {
     height: fit-content;
     background-color: #eee;
 }
 
-.uploading label { margin-right: .5em; font-size: 120%; font-weight: bold; }
+.uploading .label { margin-right: .5em; font-size: 120%; font-weight: bold; }
 .uploading p { margin-top: 0; margin-bottom: .5em;}
-.uploading label { display: inline-block; }
+.uploading .label { display: inline-block; }
 .uploading input {margin-bottom: 0.25em; max-width: 100%; overflow: hidden;}
 .uploading textarea {
-   margin-top: .5em;
-   margin-bottom: .25em; 
+   margin-top: 3px;
    max-width: 97%;
    min-width: 97%;
    width: 97%;
    max-height: 200px;
+   border-radius: 3px;
+   border:1px solid #d6bcd6;
 }
 
-.clear {
-	box-shadow: 2px 3px 0px 0px #899599;
+input[type="file"] {
+    display: none;
+}
+
+
+.button {
 	background:linear-gradient(to bottom, #ededed 5%, #bab1ba 100%);
 	background-color:#ededed;
-	border-radius: 5px;
+	border-radius:5px;
 	border:1px solid #d6bcd6;
 	display:inline-block;
-	cursor:pointer;
+	cursor: pointer;
 	color:#264249;
-	font-family:Arial;
 	padding:5px 12px;
 	text-decoration:none;
     text-shadow:0px 1px 0px #e1e2ed;
+    margin-bottom: 3px;
+    font-size: 11px;
 }
-.clear:hover {
+.button:hover {
 	background:linear-gradient(to bottom, #bab1ba 5%, #ededed 100%);
 	background-color:#bab1ba;
 }
-.clear:active {
+.button:active {
 	position:relative;
 	top:1px;
 }
+
+#left_clear, #right_clear {
+	box-shadow: 2px 3px 0px 0px #899599;
+}
+
+
 
 
 

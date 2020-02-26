@@ -9,7 +9,7 @@
     <body>
           <div class = "data">
             <div class="clustering">
-              <p><label>clustering</label>
+              <p><label class="label">clustering</label>
               cluster network to add some color to the nodes</p>
               <button id="clusterButton" type="button">Cluster</button>
             </div>
@@ -23,27 +23,27 @@
                     <svg id="left_svg"></svg>
                     <div class="mini-container">
                       <div class = "selection">
-                        <p><label>data</label>
+                        <p><label class="label">data</label>
                           Select a dataset</p>
             
                           <select name="ab" id="left_select" onchange="if (this.selectedIndex) select_data(this.selectedIndex, '#left_svg');">
-                            <option value="-1">--</option>
+                            <option value="-1">No selection</option>
                             <option value="1">Option1</option> 
                             <option value="2">Option2</option>
                             <option value="3">Option3</option>
-                        </select> </br>
-                        <button class="clear" id="left_clear"> clear chart </button>
+                        </select> 
                       </div>
                       <div class="uploading">
-                        <p><label>json</label>
+                        <p><label class = "label">json</label>
                           Upload your dataset in .json</p>
-                          <input type="file" id="left_file" value="Import" name="#left_svg"/><br />
-                          <button id="left_import">Build a network</button> </br>
+                          <input type="file" name="#left_svg" id="left_file" class="inputfile" />
+                          <label for="left_file" class="button"> Import </label> <br/>
+                          <button id="left_import" class="button">Build a network</button> 
                           <textarea id="left_result" placeholder="Data preview"></textarea>
 
                       </div>
                       <div>
-                        div3
+                        <button class="button" id="left_clear"> Clear Chart </button>
                       </div>
 
                     </div>
@@ -54,26 +54,27 @@
                     <svg id="right_svg" class = "viz"></svg>
                     <div class="mini-container">
                       <div class="selection">
-                        <p><label>data</label>
+                        <p><label class="label">data</label>
                           Select a dataset</p>
             
                           <select name="ab" id="right_select" onchange="if (this.selectedIndex) select_data(this.selectedIndex, '#right_svg');">
-                            <option value="-1">--</option>
+                            <option value="-1">No selection</option>
                             <option value="1">Option1</option> 
                             <option value="2">Option2</option>
                             <option value="3">Option3</option>
-                        </select> </br>
-                        <button class="clear" id="right_clear"> clear chart </button>
+                        </select>
+                        
                       </div>
                       <div class="uploading">
-                        <p><label>json</label>
+                        <p><label class="label">json</label>
                           Upload your dataset in .json</p>
-                          <input type="file" id="right_file" value="Import" name="#right_svg"/><br />
-                          <button id="right_import">Build a network</button> </br>
+                          <label for="right_file" class="button"> Import </label>
+                          <input type="file" name="#right_svg" id="right_file" class="inputfile" /> </br>
+                          <button id="right_import" class="button">Build a network</button> 
                           <textarea id="right_result" placeholder="Data preview"></textarea>
                       </div>
                       <div>
-                        div3
+                        <button class="button" id="right_clear"> Clear Chart </button>
                       </div>
 
                     </div>
