@@ -6,13 +6,16 @@ var graph;
 // load the data
 
 function network_from_selected_data (sel) {
-    if (sel == "Option1") {
-        var name = "data/data.json";
-    } else if (sel == "Option2") {
+    if (sel == 1) {
+        var name = "data/before.json";
+    } else if (sel == 2) {
+        var name = "data/during.json"
+    } else if (sel == 3) {
+        var name = "data/data.json"   
+    } else if (sel == 4) {
         var name = "data/data2.json"
-    } else if (sel == "Option3") {
-        alert("Option3 is not defined")
-        
+    } else if (sel == 5) {
+        var name = "data/data3.json"
     }
     d3.json(name, function(error, _graph) {
         if (error) throw error;
@@ -31,7 +34,7 @@ function select_data (index, side) {
         var x = document.getElementById("right_select")
     }
     window.side = side;
-    var selection = x.options[index].text;
+    var selection = x.options[index].index;
 
     var svg = d3.select(side);
     svg.selectAll("*").remove();

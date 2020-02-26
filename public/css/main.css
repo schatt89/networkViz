@@ -62,7 +62,7 @@ body {
     margin-bottom: 15px;
 }    .selection select {
         display: inline-block;
-        width: 60%;
+        width: fit-content;
         cursor: pointer;
         padding: 5px 15px;
         outline: 0;
