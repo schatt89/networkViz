@@ -298,7 +298,7 @@ function initializeDisplay(side) {
     // Define the div for the tooltip
     var div = d3.select(net).append("div")	
         .attr("class", "tooltip")			
-        .style("opacity", 0);
+        .style("opacity", 1);
     
     // node tooltip
     node.on("mouseover", function(d) {		

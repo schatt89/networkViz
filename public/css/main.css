@@ -121,7 +121,7 @@ input[type="file"] {
 	text-decoration:none;
     text-shadow:0px 1px 0px #e1e2ed;
     margin-bottom: 3px;
-    font-size: 11px;
+    font-size: 12px;
 }
 .button:hover {
 	background:linear-gradient(to bottom, #bab1ba 5%, #ededed 100%);
@@ -136,31 +136,16 @@ input[type="file"] {
 	box-shadow: 2px 3px 0px 0px #899599;
 }
 
-
-
-
-
-.data .clustering {
-    padding: 5px;
-    border-radius: 3px;
-    width: 200px;
+.uploading {
     height: fit-content;
-    margin: 5px 0;
     background-color: #eee;
 }
 
-.data .clustering label { margin-right: .5em; font-size: 120%; font-weight: bold; display: inline-block; }
-.data .clustering p { margin-top: 0; margin-bottom: .5em;}
+.coloring .label { margin-right: .5em; font-size: 120%; font-weight: bold; }
+.coloring p { margin-top: 0; margin-bottom: .5em;}
+.coloring .label { display: inline-block; }
 
 
-.data .add_network {
-    padding: 5px;
-    border-radius: 3px;
-    width: 200px;
-    height: fit-content;
-    margin: 5px 0;
-    background-color: #eee;
-}
 
 /* network-specific controls */
 
