@@ -253,7 +253,7 @@ simulation.force("link")
 
 // updates ignored until this is run
 // restarts the simulation (important if simulation has already slowed down)
-simulation.alpha(0.8).restart();
+simulation.alpha(1).restart();
 }
     
     //////////// DISPLAY ////////////
@@ -265,7 +265,6 @@ function initializeDisplay(side) {
     // set the data and properties of link lines
     link = svg.append("g")
         .attr("class", "links")
-        .attr("id", side + "_link")
     .selectAll("line")
     .data(graph.links)
     .enter().append("line")
@@ -275,7 +274,6 @@ function initializeDisplay(side) {
     
     node = svg.append("g")
         .attr("class", "nodes")
-        .attr("id", side + "_node")
     .selectAll("circle")
     .data(graph.nodes)
     .enter().append("circle")
@@ -309,20 +307,20 @@ function initializeDisplay(side) {
             .style("opacity", 0);	
     });
     // visualize the graph
-    updateDisplay(side);
+    updateDisplay();
     }
     
     // update the display based on the forces (but not positions)
-    function updateDisplay(side) {
+    function updateDisplay() {
         //var myColor = d3.scaleOrdinal();
     
-    node.attr("id", function(d, i) { return side + "_node" + d.id })
+    node
         .attr("r", forceProperties.collide.radius)
         .attr("stroke", forceProperties.charge.strength > 0 ? "blue" : "red")
         .attr("stroke-width", forceProperties.charge.enabled==false ? 0 : Math.abs(forceProperties.charge.strength)/15)
         //.style("fill", function(d) { return myColor.domain(d.group).range(d3.schemeSet3); })
     
-    link.attr("id", function(d, i) { return side + "_linkFrom" + d.source + "To" + d.target; })
+    link
         .attr("stroke-width", forceProperties.link.enabled ? 1 : .5)
         .attr("opacity", forceProperties.link.enabled ? 1 : 0);
     }

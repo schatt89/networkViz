@@ -1,7 +1,7 @@
 // svg objects
-var link, node;
+var link_left, node_left, link_right, node_right;
 // the data - an object with nodes and links
-var graph;
+var graph_left, graph_right;
 
 // load the data
 
@@ -17,9 +17,9 @@ function network_from_selected_data (sel) {
     }
     d3.json(name, function(error, _graph) {
         if (error) throw error;
-        graph = _graph;
         var side = window.side;
-        console.log(side)
+        window['graph' + "_" + side] = _graph;
+        console.log(side);
         initializeDisplay(side);
         initializeSimulation(side);
         });
@@ -31,8 +31,8 @@ function select_data (index, side) {
     window.side = side;
     var selection = x.options[index].index;
 
-    var svg = d3.select("#" + side + "_svg");
-    svg.selectAll("*").remove();
+    window['svg' + "_" + side] = d3.select("#" + side + "_svg");
+    window['svg' + "_" + side].selectAll("*").remove();
 
     network_from_selected_data(selection);
 }
@@ -64,7 +64,7 @@ document.getElementById('left_import').onclick = function() {
   
       d3.selectAll("#left_svg > *").remove();
       var root = d.data;
-      graph = root;
+      graph_left = root;
       initializeDisplay("left");
       initializeSimulation("left");
   
@@ -98,8 +98,7 @@ document.getElementById('left_import').onclick = function() {
   
       d3.selectAll("#right_svg > *").remove();
       var root = d.data;
-      graph = root;
-      console.log(graph);
+      graph_right = root;
       initializeDisplay("right");
       initializeSimulation("right");
   
@@ -152,32 +151,31 @@ var dragging = false;
 //// CLEAR SVG //////
 
 document.getElementById('left_clear').onclick = function() {
-    var svg = d3.select("#left_svg");
-    svg.selectAll("*").remove();
+    svg.selectAll("#left_svg > *").remove();
 }
 
 document.getElementById('right_clear').onclick = function() {
-    var svg = d3.select("#right_svg");
-    svg.selectAll("*").remove();
+    svg.selectAll("#right_svg > *").remove();
 }
 
 //////////// FORCE SIMULATION //////////// 
 
 // force simulator
-var simulation = d3.forceSimulation();
+var simulation_left = d3.forceSimulation();
+var simulation_right = d3.forceSimulation();
 
 // set up the simulation and event to update locations after each tick
 function initializeSimulation(side) {
-var svg = d3.select("#" + side + "_svg")
-width = +svg.node().getBoundingClientRect().width,
-height = +svg.node().getBoundingClientRect().height;
-simulation.nodes(graph.nodes);
-initializeForces();
-simulation.on("tick", ticked);
+window['svg' + "_" + side] = d3.select("#" + side + "_svg")
+window['width' + "_" + side] = +window['svg' + "_" + side].node().getBoundingClientRect().width,
+window['height' + "_" + side] = +window['svg' + "_" + side].node().getBoundingClientRect().height;
+window['simulation' + "_" + side].nodes(window['graph' + "_" + side].nodes);
+initializeForces(side);
+window['simulation' + "_" + side].on("tick", ticked);
 }
 
 // values for all forces
-forceProperties = {
+forceProperties_left = {
 center: {
     x: 0.5,
     y: 0.5
@@ -211,10 +209,44 @@ link: {
 }
 }
 
+forceProperties_right = {
+    center: {
+        x: 0.5,
+        y: 0.5
+    },
+    charge: {
+        enabled: true,
+        strength: -30, 
+        distanceMin: 1,
+        distanceMax: 2000
+    },
+    collide: {
+        enabled: true,
+        strength: .7,
+        iterations: 1,
+        radius: 5
+    },
+    forceX: {
+        enabled: false,
+        strength: .1,
+        x: .5
+    },
+    forceY: {
+        enabled: false,
+        strength: .1,
+        y: .5
+    },
+    link: {
+        enabled: true,
+        distance: 30,
+        iterations: 1
+    }
+    }
+
 // add forces to the simulation
-function initializeForces() {
+function initializeForces(side) {
 // add forces and associate each with a name
-simulation
+window['simulation' + "_" + side]
     .force("link", d3.forceLink())
     .force("charge", d3.forceManyBody())
     .force("collide", d3.forceCollide())
@@ -222,62 +254,62 @@ simulation
     .force("forceX", d3.forceX())
     .force("forceY", d3.forceY());
 // apply properties to each of the forces
-updateForces();
+updateForces(side);
 }
 
 // apply new force properties
-function updateForces() {
+function updateForces(side) {
 // get each force by name and update the properties
-simulation.force("center")
-    .x(width * forceProperties.center.x)
-    .y(height * forceProperties.center.y);
-simulation.force("charge")
-    .strength(forceProperties.charge.strength * forceProperties.charge.enabled)
-    .distanceMin(forceProperties.charge.distanceMin)
-    .distanceMax(forceProperties.charge.distanceMax);
-simulation.force("collide")
-    .strength(forceProperties.collide.strength * forceProperties.collide.enabled)
-    .radius(forceProperties.collide.radius)
-    .iterations(forceProperties.collide.iterations);
-simulation.force("forceX")
-    .strength(forceProperties.forceX.strength * forceProperties.forceX.enabled)
-    .x(width * forceProperties.forceX.x);
-simulation.force("forceY")
-    .strength(forceProperties.forceY.strength * forceProperties.forceY.enabled)
-    .y(height * forceProperties.forceY.y);
-simulation.force("link")
+window['simulation' + "_" + side].force("center")
+    .x(window['width' + "_" + side] * window['forceProperties' + "_" + side].center.x)
+    .y(window['height' + "_" + side] * window['forceProperties' + "_" + side].center.y);
+
+window['simulation' + "_" + side].force("charge")
+    .strength(window['forceProperties' + "_" + side].charge.strength * window['forceProperties' + "_" + side].charge.enabled)
+    .distanceMin(window['forceProperties' + "_" + side].charge.distanceMin)
+    .distanceMax(window['forceProperties' + "_" + side].charge.distanceMax);
+window['simulation' + "_" + side].force("collide")
+    .strength(window['forceProperties' + "_" + side].collide.strength * window['forceProperties' + "_" + side].collide.enabled)
+    .radius(window['forceProperties' + "_" + side].collide.radius)
+    .iterations(window['forceProperties' + "_" + side].collide.iterations);
+window['simulation' + "_" + side].force("forceX")
+    .strength(window['forceProperties' + "_" + side].forceX.strength * window['forceProperties' + "_" + side].forceX.enabled)
+    .x(window['width' + "_" + side] * window['forceProperties' + "_" + side].forceX.x);
+window['simulation' + "_" + side].force("forceY")
+    .strength(window['forceProperties' + "_" + side].forceY.strength * window['forceProperties' + "_" + side].forceY.enabled)
+    .y(window['heigth' + "_" + side] * window['forceProperties' + "_" + side].forceY.y);
+window['simulation' + "_" + side].force("link")
     .id(function(d) {return d.id;})
-    .distance(forceProperties.link.distance)
-    .iterations(forceProperties.link.iterations)
-    .links(forceProperties.link.enabled ? graph.links : []);
+    .distance(window['forceProperties' + "_" + side].link.distance)
+    .iterations(window['forceProperties' + "_" + side].link.iterations)
+    .links(window['forceProperties' + "_" + side].link.enabled ? window['graph' + "_" + side].links : []);
 
 // updates ignored until this is run
 // restarts the simulation (important if simulation has already slowed down)
-simulation.alpha(0.8).restart();
+window['simulation' + "_" + side].alpha(1).restart();
+
 }
     
     //////////// DISPLAY ////////////
 
 // generate the svg objects and force simulation
 function initializeDisplay(side) {
-    var svg = d3.select("#" + side + "_svg")
-    console.log(svg)
+    window['svg' + "_" + side] = d3.select("#" + side + "_svg")
+    console.log(window['svg' + "_" + side])
     // set the data and properties of link lines
-    link = svg.append("g")
+    window['link' + "_" + side] = window['svg' + "_" + side].append("g")
         .attr("class", "links")
-        .attr("id", side + "_link")
     .selectAll("line")
-    .data(graph.links)
+    .data(window['graph' + "_" + side].links)
     .enter().append("line")
     .style("stroke-width", function(d) { return Math.sqrt(d.value); });
     
     // set the data and properties of node circles
     
-    node = svg.append("g")
+    window['node' + "_" + side] = window['svg' + "_" + side].append("g")
         .attr("class", "nodes")
-        .attr("id", side + "_node")
     .selectAll("circle")
-    .data(graph.nodes)
+    .data(window['graph' + "_" + side].nodes)
     .enter().append("circle")
         .call(d3.drag()
             .on("start", dragstarted)
@@ -287,24 +319,24 @@ function initializeDisplay(side) {
     var net = "#" + side + "_container"
     
     // Define the div for the tooltip
-    var div = d3.select(net).append("div")	
+    window['div' + "_" + side] = d3.select(net).append("div")	
         .attr("class", "tooltip")			
         .style("opacity", 0);
     
     // node tooltip
-    node.on("mouseover", function(d) {		
-        div.transition()		
+    window['node' + "_" + side].on("mouseover", function(d) {		
+        window['div' + "_" + side].transition()		
             .duration(200)
             .style("background-color", "#eee")
             .style("opacity", .9);		
-        div	.html(d.id + "<br/> Group: "  + d.group)	
+        window['div' + "_" + side].html(d.id + "<br/> Group: "  + d.group)	
             .style("left", (d3.event.pageX) - 200 + "px")		
             .style("top", (d3.event.pageY) + "px")
             .style("display", "flex")
             .style("position", "absolute");
         })					
     .on("mouseout", function(d) {		
-        div.transition()		
+        window['div' + "_" + side].transition()		
             .duration(500)		
             .style("opacity", 0);	
     });
@@ -316,29 +348,30 @@ function initializeDisplay(side) {
     function updateDisplay(side) {
         //var myColor = d3.scaleOrdinal();
     
-    node.attr("id", function(d, i) { return side + "_node" + d.id })
-        .attr("r", forceProperties.collide.radius)
-        .attr("stroke", forceProperties.charge.strength > 0 ? "blue" : "red")
-        .attr("stroke-width", forceProperties.charge.enabled==false ? 0 : Math.abs(forceProperties.charge.strength)/15)
+    window['node' + "_" + side]
+        .attr("r", window['forceProperties' + "_" + side].collide.radius)
+        .attr("stroke", window['forceProperties' + "_" + side].charge.strength > 0 ? "blue" : "red")
+        .attr("stroke-width", window['forceProperties' + "_" + side].charge.enabled==false ? 0 : Math.abs(window['forceProperties' + "_" + side].charge.strength)/15)
         //.style("fill", function(d) { return myColor.domain(d.group).range(d3.schemeSet3); })
     
-    link.attr("id", function(d, i) { return side + "_linkFrom" + d.source + "To" + d.target; })
-        .attr("stroke-width", forceProperties.link.enabled ? 1 : .5)
-        .attr("opacity", forceProperties.link.enabled ? 1 : 0);
+    window['link' + "_" + side]
+        .attr("stroke-width", window['forceProperties' + "_" + side].link.enabled ? 1 : .5)
+        .attr("opacity", window['forceProperties' + "_" + side].link.enabled ? 1 : 0);
     }
     
     // update the display positions after each simulation tick
     function ticked() {
-    link
+    link_left
         .attr("x1", function(d) { return d.source.x; })
         .attr("y1", function(d) { return d.source.y; })
         .attr("x2", function(d) { return d.target.x; })
         .attr("y2", function(d) { return d.target.y; });
     
-    node
+    node_left
         .attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; });
-    d3.select('#alpha_value').style('flex-basis', (simulation.alpha()*100) + '%');
+    d3.select('#alpha_value').style('flex-basis', (simulation_left.alpha()*100) + '%');
+
     }
     
     //d3.select("#clusterButton").on("click", function () {
@@ -357,7 +390,7 @@ function initializeDisplay(side) {
     //////////// UI EVENTS ////////////
     
     function dragstarted(d) {
-    if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+    if (!d3.event.active) window['simulation' + "_" + side].alphaTarget(0.3).restart();
     d.fx = d.x;
     d.fy = d.y;
     }
@@ -368,22 +401,26 @@ function initializeDisplay(side) {
     }
     
     function dragended(d) {
-    if (!d3.event.active) simulation.alphaTarget(0.0001);
+    if (!d3.event.active) window['simulation' + "_" + side].alphaTarget(0.0001);
     d.fx = null;
     d.fy = null;
     }
     
     // update size-related forces
-    d3.select(window).on("resize", function(){
-    width = +svg.node().getBoundingClientRect().width;
-    height = +svg.node().getBoundingClientRect().height;
-    updateForces();
+    d3.select("#sidebar").on("resize", function(){
+    window.width_left = +window.svg_left.node().getBoundingClientRect().width;
+    window.height_left = +window.svg_left.node().getBoundingClientRect().height;
+
+    window.width_right = +window.svg_right.node().getBoundingClientRect().width;
+    window.height_right = +window.svg_right.node().getBoundingClientRect().height;
+    updateForces("left");
+    updateForces("right");
     });
     
     // convenience function to update everything (run after UI input)
     function updateAll() {
-    updateForces();
-    updateDisplay();
+    updateForces('left');
+    updateDisplay('left');
     };
     
     document.getElementById('clusterButton').onclick = function recolor(d) {
