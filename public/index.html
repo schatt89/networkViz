@@ -9,7 +9,7 @@
     <body>
           <div class = "data">
             <div class="clustering">
-              <p><label class="label">clustering</label>
+              <p><label>clustering</label>
               cluster network to add some color to the nodes</p>
               <button id="clusterButton" type="button">Cluster</button>
             </div>
@@ -26,14 +26,14 @@
                         <p><label class="label">data</label>
                           Select a dataset</p>
             
-                          <select name="ab" id="left_select" onchange="if (this.selectedIndex) select_data(this.selectedIndex, '#left_svg');">
+                          <select name="ab" id="left_select" onchange="if (this.selectedIndex) select_data(this.selectedIndex, 'left');">
                             <option value="-1">No selection</option>
                             <option value="1">Investor network - before</option>
                             <option value="2">Investor network - during</option>
                             <option value="3">Option1</option> 
                             <option value="4">Option2</option>
-                            <option value="5">Option3</option>
                         </select> 
+
                       </div>
                       <div class="uploading">
                         <p><label class = "label">json</label>
@@ -42,10 +42,6 @@
                           <label for="left_file" class="button"> Import </label> <br/>
                           <button id="left_import" class="button">Build a network</button> 
                           <textarea id="left_result" placeholder="Data preview"></textarea>
-
-                      </div>
-                      <div class = "coloring">
-                        <p><label class = "label">coloring</label>select an attribute or cluster network</p>
                       </div>
                       <div>
                         <button class="button" id="left_clear"> Clear Chart </button>
@@ -62,26 +58,22 @@
                         <p><label class="label">data</label>
                           Select a dataset</p>
             
-                          <select name="ab" id="right_select" onchange="if (this.selectedIndex) select_data(this.selectedIndex, '#right_svg');">
+                          <select name="ab" id="right_select" onchange="if (this.selectedIndex) select_data(this.selectedIndex, 'right');">
                             <option value="-1">No selection</option>
                             <option value="1">Investor network - before</option>
                             <option value="2">Investor network - during</option>
                             <option value="3">Option1</option> 
                             <option value="4">Option2</option>
-                            <option value="5">Option3</option>
-                        </select>
-                        
+                        </select> 
+
                       </div>
                       <div class="uploading">
-                        <p><label class="label">json</label>
+                        <p><label class = "label">json</label>
                           Upload your dataset in .json</p>
-                          <label for="right_file" class="button"> Import </label>
-                          <input type="file" name="#right_svg" id="right_file" class="inputfile" /> </br>
+                          <input type="file" name="#right_svg" id="right_file" class="inputfile" />
+                          <label for="right_file" class="button"> Import </label> <br/>
                           <button id="right_import" class="button">Build a network</button> 
                           <textarea id="right_result" placeholder="Data preview"></textarea>
-                      </div>
-                      <div class = "coloring">
-                        <p><label class="label">coloring</label>select an attribute or cluster network</p>
                       </div>
                       <div>
                         <button class="button" id="right_clear"> Clear Chart </button>

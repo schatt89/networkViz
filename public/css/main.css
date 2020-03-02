@@ -42,13 +42,6 @@ body {
     padding: 0 5px;
 }
 
-/*.selection {
-    background-color:#eee;
-    border-radius: 3px;
-    padding: 5px;
-    margin: 5px 0;
-}*/
-
 .selection p .label { margin-right: .5em; font-size: 120%; font-weight: bold; }
 .selection p { margin-top: 0; margin-bottom: .5em;}
 .selection .label { display: inline-block; }
@@ -62,7 +55,7 @@ body {
     margin-bottom: 15px;
 }    .selection select {
         display: inline-block;
-        width: fit-content;
+        width: 60%;
         cursor: pointer;
         padding: 5px 15px;
         outline: 0;
@@ -121,7 +114,7 @@ input[type="file"] {
 	text-decoration:none;
     text-shadow:0px 1px 0px #e1e2ed;
     margin-bottom: 3px;
-    font-size: 12px;
+    font-size: 11px;
 }
 .button:hover {
 	background:linear-gradient(to bottom, #bab1ba 5%, #ededed 100%);
@@ -136,16 +129,30 @@ input[type="file"] {
 	box-shadow: 2px 3px 0px 0px #899599;
 }
 
-.uploading {
+.data .clustering {
+    padding: 5px;
+    border-radius: 3px;
+    width: 200px;
     height: fit-content;
+    margin: 5px 0;
     background-color: #eee;
 }
 
-.coloring .label { margin-right: .5em; font-size: 120%; font-weight: bold; }
-.coloring p { margin-top: 0; margin-bottom: .5em;}
-.coloring .label { display: inline-block; }
+.data .clustering label { margin-right: .5em; font-size: 120%; font-weight: bold; display: inline-block; }
+.data .clustering p { margin-top: 0; margin-bottom: .5em;}
 
 
+.data .add_network {
+    padding: 5px;
+    border-radius: 3px;
+    width: 200px;
+    height: fit-content;
+    margin: 5px 0;
+    background-color: #eee;
+}
+
+.data .add_network label { margin-right: .5em; font-size: 120%; font-weight: bold; display: inline-block; }
+.data .add_network p { margin-top: 0; margin-bottom: .5em;}
 
 /* network-specific controls */
 
@@ -172,10 +179,6 @@ input[type="file"] {
 
 .mini-container div {
     flex: 1;
-}
-
-#left_select, #right_select {
-    margin-bottom: 0.5em;
 }
 
 

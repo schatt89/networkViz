@@ -14,8 +14,6 @@ function network_from_selected_data (sel) {
         var name = "data/data.json"   
     } else if (sel == 4) {
         var name = "data/data2.json"
-    } else if (sel == 5) {
-        var name = "data/data3.json"
     }
     d3.json(name, function(error, _graph) {
         if (error) throw error;
@@ -28,20 +26,16 @@ function network_from_selected_data (sel) {
 }
 
 function select_data (index, side) {
-    if (side == "#left_svg") {
-        var x = document.getElementById("left_select");
-    } else if (side == "#right_svg") {
-        var x = document.getElementById("right_select")
-    }
+
+    var x = document.getElementById(side + "_select")
     window.side = side;
     var selection = x.options[index].index;
 
-    var svg = d3.select(side);
+    var svg = d3.select("#" + side + "_svg");
     svg.selectAll("*").remove();
 
     network_from_selected_data(selection);
 }
-
 
 //////////// UPLOADING A CUSTOM FILE //////////////
 
@@ -55,7 +49,7 @@ document.getElementById('left_import').onclick = function() {
     var fr = new FileReader();
     
     fr.onload = async function(e) { 
-      console.log(e);
+    console.log(e);
       const result = JSON.parse(e.target.result);
       console.log(result)
       var formatted = JSON.stringify(result, null, 2);
@@ -68,18 +62,16 @@ document.getElementById('left_import').onclick = function() {
       const d = await response.json();
       console.log(d);
   
-      var side = "#left_svg"
-      var svg = d3.select(side);
-      svg.selectAll("*").remove();
+      d3.selectAll("#left_svg > *").remove();
       var root = d.data;
       graph = root;
-      initializeDisplay(side);
-      initializeSimulation(side);
+      initializeDisplay("left");
+      initializeSimulation("left");
   
     }
-  
+    
     fr.readAsText(files.item(0));
-
+  
   }
 
   document.getElementById('right_import').onclick = function() {
@@ -92,7 +84,7 @@ document.getElementById('left_import').onclick = function() {
     var fr = new FileReader();
     
     fr.onload = async function(e) { 
-      console.log(e);
+    console.log(e);
       const result = JSON.parse(e.target.result);
       console.log(result)
       var formatted = JSON.stringify(result, null, 2);
@@ -103,18 +95,16 @@ document.getElementById('left_import').onclick = function() {
           headers: {"Content-Type": "application/json"}
       })
       const d = await response.json();
-      console.log(d);
   
-      var side = "#right_svg"
-      var svg = d3.select(side);
-      svg.selectAll("*").remove();
+      d3.selectAll("#right_svg > *").remove();
       var root = d.data;
       graph = root;
-      initializeDisplay(side);
-      initializeSimulation(side);
+      console.log(graph);
+      initializeDisplay("right");
+      initializeSimulation("right");
   
     }
-
+    
     fr.readAsText(files.item(0));
   
   }
@@ -125,6 +115,7 @@ var i = 0;
 var dragging = false;
    $('#dragbar').mousedown(function(e){
        e.preventDefault();
+       
        dragging = true;
        var main = $('#main');
        var ghostbar = $('<div>',
@@ -134,10 +125,10 @@ var dragging = false;
                                 top: main.offset().top,
                                 left: main.offset().left
                                }
-                        }).appendTo('#networks');
+                        }).appendTo('body');
        
         $(document).mousemove(function(e){
-          ghostbar.css("left", e.pageX+2);
+          ghostbar.css("left",e.pageX+2);
        });
        
     });
@@ -148,15 +139,15 @@ var dragging = false;
            var percentage = (e.pageX / window.innerWidth) * 100;
            var mainPercentage = 100-percentage;
            
-           $('#sidebar').css("width", percentage + "%");
-           $('#main').css("width", mainPercentage + "%");
+           $('#console').text("side:" + percentage + " main:" + mainPercentage);
+           
+           $('#sidebar').css("width",percentage + "%");
+           $('#main').css("width",mainPercentage + "%");
            $('#ghostbar').remove();
            $(document).unbind('mousemove');
            dragging = false;
        }
     });
-
-
 
 //// CLEAR SVG //////
 
@@ -170,7 +161,6 @@ document.getElementById('right_clear').onclick = function() {
     svg.selectAll("*").remove();
 }
 
-
 //////////// FORCE SIMULATION //////////// 
 
 // force simulator
@@ -178,7 +168,7 @@ var simulation = d3.forceSimulation();
 
 // set up the simulation and event to update locations after each tick
 function initializeSimulation(side) {
-var svg = d3.select(side)
+var svg = d3.select("#" + side + "_svg")
 width = +svg.node().getBoundingClientRect().width,
 height = +svg.node().getBoundingClientRect().height;
 simulation.nodes(graph.nodes);
@@ -270,7 +260,7 @@ simulation.alpha(1).restart();
 
 // generate the svg objects and force simulation
 function initializeDisplay(side) {
-    var svg = d3.select(side)
+    var svg = d3.select("#" + side + "_svg")
     console.log(svg)
     // set the data and properties of link lines
     link = svg.append("g")
@@ -292,16 +282,12 @@ function initializeDisplay(side) {
             .on("drag", dragged)
             .on("end", dragended));
     
-    if (side == "#left_svg") {
-        var net = "#left_container"
-    } else if (side == "#right_svg") {
-        var net = "#right_container"
-    }
+    var net = "#" + side + "_container"
     
     // Define the div for the tooltip
     var div = d3.select(net).append("div")	
         .attr("class", "tooltip")			
-        .style("opacity", 1);
+        .style("opacity", 0);
     
     // node tooltip
     node.on("mouseover", function(d) {		
