@@ -317,12 +317,15 @@ function initializeDisplay(side) {
         //var myColor = d3.scaleOrdinal();
     
     node.attr("id", function(d, i) { return side + "_node" + d.id })
+        .attr("name", function(d, i) { return d.id})
         .attr("r", forceProperties.collide.radius)
         .attr("stroke", forceProperties.charge.strength > 0 ? "blue" : "red")
         .attr("stroke-width", forceProperties.charge.enabled==false ? 0 : Math.abs(forceProperties.charge.strength)/15)
         //.style("fill", function(d) { return myColor.domain(d.group).range(d3.schemeSet3); })
     
     link.attr("id", function(d, i) { return side + "_linkFrom" + d.source + "To" + d.target; })
+        .attr("from", function(d, i) { return d.source; })
+        .attr("to", function(d, i) { return d.target; })
         .attr("stroke-width", forceProperties.link.enabled ? 1 : .5)
         .attr("opacity", forceProperties.link.enabled ? 1 : 0);
     }
