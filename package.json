@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/schatt89/networkViz#readme",
   "dependencies": {
-    "d3": "^5.15.0",
+    "d3": "^7.6.1",
     "express": "^4.17.1"
   }
 }
